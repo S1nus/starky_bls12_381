@@ -398,6 +398,15 @@ impl Sub for Fp {
     }
 }
 
+/*
+    TODO(colludingnode): in-circuit KZG commitment equivalence
+    see verify_blob_kzg_proof: https://github.com/ethereum/c-kzg-4844/blob/main/src/c_kzg_4844.c#L1157
+*/
+pub struct Polynomial {
+    pub evals: Vec<Fp>,
+}
+
+
 pub fn add_fp(x: Fp, y: Fp) -> Fp {
     // let x_b = BigUint::new(x.0.try_into().unwrap());
     // let y_b = BigUint::new(y.0.try_into().unwrap());
@@ -1310,14 +1319,6 @@ pub fn pairing(p_x: Fp, p_y: Fp, q_x: Fp2, q_y: Fp2, q_z: Fp2) -> Fp12 {
     let looped = miller_loop(p_x, p_y, q_x, q_y, q_z);
     looped
     // looped.final_exponentiate()
-}
-
-/*
-    TODO(colludingnode): in-circuit KZG commitment equivalence
-    see verify_blob_kzg_proof: https://github.com/ethereum/c-kzg-4844/blob/main/src/c_kzg_4844.c#L1157
-*/
-pub struct Polynomial {
-    pub evals: Vec<u32>,
 }
 
 pub fn mod_sub(a: u32, b: u32) -> (u32, bool) {
